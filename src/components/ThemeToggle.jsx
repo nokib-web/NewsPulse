@@ -1,53 +1,56 @@
 "use client"
 
 import * as React from "react"
-import { Moon, Sun } from "lucide-react"
+import { Moon, Sun, Monitor } from "lucide-react"
 import { useTheme } from "next-themes"
 
+import { Button } from "@/components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 export function ThemeToggle() {
-    const { theme, setTheme } = useTheme()
-    const [mounted, setMounted] = React.useState(false)
-
-    // Avoid hydration mismatch
-    React.useEffect(() => {
-        setMounted(true)
-    }, [])
-
-    if (!mounted) return <div className="w-16 h-8 rounded-full bg-slate-200/50 dark:bg-slate-800/50 animate-pulse" />
-
-    const isDark = theme === "dark" || (theme === "system" && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    const { setTheme } = useTheme()
 
     return (
-        <div className="group relative inline-flex items-center">
-            <button
-                onClick={() => setTheme(isDark ? "light" : "dark")}
-                className="relative flex h-9 w-16 cursor-pointer items-center rounded-full bg-slate-200/80 p-1 transition-colors duration-300 ease-in-out hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 shadow-inner"
-                aria-label="Toggle theme"
-            >
-                <span
-                    className={`
-            flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md transition-all duration-500 ease-spring
-            ${isDark ? 'translate-x-7 bg-blue-600' : 'translate-x-0'}
-          `}
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full w-10 h-10 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-white/20 dark:border-slate-800 shadow-sm relative group"
                 >
-                    {isDark ? (
-                        <Moon className="h-4 w-4 text-white" />
-                    ) : (
-                        <Sun className="h-4 w-4 text-amber-500" />
-                    )}
-                </span>
-
-                {/* Hidden Icons for Layout Spacing */}
-                <div className="absolute inset-0 flex items-center justify-between px-2 pointer-events-none">
-                    <Sun className={`h-3.5 w-3.5 transition-opacity duration-300 ${isDark ? 'opacity-40 text-slate-400' : 'opacity-0'}`} />
-                    <Moon className={`h-3.5 w-3.5 transition-opacity duration-300 ${!isDark ? 'opacity-40 text-slate-400' : 'opacity-0'}`} />
-                </div>
-            </button>
-
-            {/* Subtle Tooltip */}
-            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-slate-900 px-2 py-1 text-[10px] font-bold text-white transition-all group-hover:scale-100">
-                {isDark ? 'Light' : 'Dark'}
-            </span>
-        </div>
+                    <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
+                    <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-blue-400" />
+                    <span className="sr-only">Toggle theme</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-white/80 dark:bg-slate-900/90 backdrop-blur-lg border-white/20 dark:border-slate-800 rounded-xl mt-2 animate-in fade-in zoom-in-95">
+                <DropdownMenuItem
+                    onClick={() => setTheme("light")}
+                    className="flex items-center gap-2 py-2.5 px-4 cursor-pointer focus:bg-blue-50 dark:focus:bg-blue-900/30 rounded-lg group"
+                >
+                    <Sun className="h-4 w-4 text-amber-500 group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">Light</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() => setTheme("dark")}
+                    className="flex items-center gap-2 py-2.5 px-4 cursor-pointer focus:bg-blue-50 dark:focus:bg-blue-900/30 rounded-lg group"
+                >
+                    <Moon className="h-4 w-4 text-blue-500 group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">Dark</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() => setTheme("system")}
+                    className="flex items-center gap-2 py-2.5 px-4 cursor-pointer focus:bg-blue-50 dark:focus:bg-blue-900/30 rounded-lg group"
+                >
+                    <Monitor className="h-4 w-4 text-slate-500 group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">System</span>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     )
 }
