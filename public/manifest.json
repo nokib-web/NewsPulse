@@ -1,0 +1,54 @@
+{
+    "name": "NewsPulse - Global Headlines",
+    "short_name": "NewsPulse",
+    "description": "Stay ahead with curated real-time breaking news from around the world",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#2563eb",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "news",
+        "productivity"
+    ],
+    "shortcuts": [
+        {
+            "name": "Top Headlines",
+            "short_name": "Headlines",
+            "description": "View top headlines",
+            "url": "/?category=general",
+            "icons": [
+                {
+                    "src": "/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Saved Articles",
+            "short_name": "Saved",
+            "description": "View saved articles",
+            "url": "/?view=saved",
+            "icons": [
+                {
+                    "src": "/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}
