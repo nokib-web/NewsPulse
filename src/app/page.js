@@ -85,14 +85,14 @@ export default function Home() {
             <Globe className="w-4 h-4" />
             Global News Pulse
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors">
-            Top <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Headlines</span>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-800 dark:text-white transition-all duration-700">
+            Top <span className="text-transparent bg-clip-text bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 dark:from-blue-400 dark:to-indigo-400">Headlines</span>
           </h1>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Stay informed with the latest breaking news from around the world. Select your region and category to customize your feed.
+          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
+            Stay ahead with curated real-time breaking news. Customize your feed by region and category below.
           </p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-4 max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-end justify-center gap-4 pt-8 max-w-5xl mx-auto">
             <div className="flex flex-col gap-2 w-full md:w-auto md:flex-1">
               <label className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider text-left sm:text-center md:text-left">
                 Search Topics
@@ -120,8 +120,8 @@ export default function Home() {
               <button
                 onClick={() => setViewMode("all")}
                 className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${viewMode === "all"
-                    ? "bg-slate-900 dark:bg-blue-600 text-white shadow-lg"
-                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  ? "bg-slate-900 dark:bg-blue-600 text-white shadow-lg"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   }`}
               >
                 <Newspaper className="w-4 h-4" />
@@ -130,8 +130,8 @@ export default function Home() {
               <button
                 onClick={() => setViewMode("saved")}
                 className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all relative ${viewMode === "saved"
-                    ? "bg-blue-600 dark:bg-blue-500 text-white shadow-lg"
-                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  ? "bg-blue-600 dark:bg-blue-500 text-white shadow-lg"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   }`}
               >
                 <Bookmark className="w-4 h-4" />

@@ -3,21 +3,51 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
     const { theme, setTheme } = useTheme()
+    const [mounted, setMounted] = React.useState(false)
+
+    // Avoid hydration mismatch
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    if (!mounted) return <div className="w-16 h-8 rounded-full bg-slate-200/50 dark:bg-slate-800/50 animate-pulse" />
+
+    const isDark = theme === "dark" || (theme === "system" && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
     return (
-        <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="rounded-full w-10 h-10 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 shadow-sm"
-        >
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-blue-400" />
-            <span className="sr-only">Toggle theme</span>
-        </Button>
+        <div className="group relative inline-flex items-center">
+            <button
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+                className="relative flex h-9 w-16 cursor-pointer items-center rounded-full bg-slate-200/80 p-1 transition-colors duration-300 ease-in-out hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 shadow-inner"
+                aria-label="Toggle theme"
+            >
+                <span
+                    className={`
+            flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md transition-all duration-500 ease-spring
+            ${isDark ? 'translate-x-7 bg-blue-600' : 'translate-x-0'}
+          `}
+                >
+                    {isDark ? (
+                        <Moon className="h-4 w-4 text-white" />
+                    ) : (
+                        <Sun className="h-4 w-4 text-amber-500" />
+                    )}
+                </span>
+
+                {/* Hidden Icons for Layout Spacing */}
+                <div className="absolute inset-0 flex items-center justify-between px-2 pointer-events-none">
+                    <Sun className={`h-3.5 w-3.5 transition-opacity duration-300 ${isDark ? 'opacity-40 text-slate-400' : 'opacity-0'}`} />
+                    <Moon className={`h-3.5 w-3.5 transition-opacity duration-300 ${!isDark ? 'opacity-40 text-slate-400' : 'opacity-0'}`} />
+                </div>
+            </button>
+
+            {/* Subtle Tooltip */}
+            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 scale-0 rounded bg-slate-900 px-2 py-1 text-[10px] font-bold text-white transition-all group-hover:scale-100">
+                {isDark ? 'Light' : 'Dark'}
+            </span>
+        </div>
     )
 }
